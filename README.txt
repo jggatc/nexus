@@ -1,6 +1,10 @@
 Nexus - Data Processor Construct
 
+Project site:
+http://gatc.ca/projects/nexus/
+
 PyWeek 20 entry
+https://www.pyweek.org/e/Nexus/
 
 Dependencies
 Python 2.7 (https://www.python.org/)
