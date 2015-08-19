@@ -1,7 +1,10 @@
 from __future__ import division
 import env
 engine = env.engine
-from interface import MatrixInterface
+try:	###
+	from interface import MatrixInterface
+except ImportError:
+	MatrixInterface = None
 
 
 class Control:
@@ -119,4 +122,62 @@ Panel toggle (p)
 
     def update(self):
         self.process_event()
+
+
+class InterfaceObj(engine.sprite.Sprite):   ###
+
+    def __init__(self, identity, matrix, control):
+        engine.sprite.Sprite.__init__(self)
+        self.matrix = matrix
+        self.control = control
+        self.width = 42
+        self.height = 44
+        self.dataprocessed = 0
+        self.dataprocessedtop = 0
+        self.color1 = engine.Color(20,20,20)
+        self.color2 = engine.Color(125,175,200)
+        self.image = engine.Surface((self.width,self.height))
+        self.image.fill(self.color1)
+        self.x, self.y = self.matrix.width-75, self.matrix.height-25
+        self.rect = self.image.get_rect(center=(self.x,self.y))
+        self.font = engine.font.SysFont('arial', 10)
+        s = self.font.render('Top', True, self.color2)
+        self.image.blit(s, (self.width//2-s.get_width()//2, 0))
+        s = self.font.render('Current', True, self.color2)
+        self.image.blit(s, (self.width//2-s.get_width()//2, 23))
+        self.surf = self.font.render('        ', True, self.color1, self.color1)
+        self.surf_pos = (self.width//2-self.surf.get_width()//2)
+        self._clock = engine.time.Clock()
+
+    def set_data_processed(self, dataprocessed):
+        self.dataprocessed = dataprocessed
+        s = self.font.render(str(dataprocessed), True, self.color2)
+        self.image.blit(self.surf, (self.surf_pos, 34))
+        self.image.blit(s, (self.width//2-s.get_width()//2, 34))
+
+    def set_data_processed_top(self, dataprocessed):
+        self.dataprocessedtop = dataprocessed
+        s = self.font.render(str(dataprocessed), True, self.color2)
+        self.image.blit(self.surf, (self.surf_pos, 11))
+        self.image.blit(s, (self.width//2-s.get_width()//2, 11))
+
+    def reset(self):
+        self.control.set_panel_display()
+
+    def set_moveable(self, setting=None):
+        pass
+
+    def get_control(self, *control):
+        class Control:
+            def set_active(self, setting=None):
+                pass
+            def next(self):
+                pass
+        return Control()
+
+    def update(self):
+        pass
+
+if not MatrixInterface:
+    MatrixInterface = InterfaceObj
 
