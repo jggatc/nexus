@@ -18,7 +18,7 @@ class Bot(Avatar):
             color1 = (200,100,120)
             color2 = (200,0,0)
             color3 = (200,0,0)
-            color4 = (100,100,120)
+#            color4 = (100,100,120)
             points = [(p[0]*2,p[1]*2) for p in [(12,0),(16,10),(24,13),(16,18),(12,24),(8,18),(0,13),(8,10)]]
             engine.draw.polygon(image, color1, points, 0)
             points = [(p[0]*2,p[1]*2) for p in [(16,11),(23,13),(16,17)]]
@@ -27,8 +27,8 @@ class Bot(Avatar):
             engine.draw.polygon(image, color2, points, 0)
             points = [(p[0]*2,p[1]*2) for p in [(12,8),(15,11),(15,17),(12,20),(9,17),(9,11)]]
             engine.draw.polygon(image, color3, points, 0)
-            points = [(p[0]*2,p[1]*2) for p in [(12,1),(12,23)]]
-            engine.draw.line(image, color4, points[0], points[1],1)
+#            points = [(p[0]*2,p[1]*2) for p in [(12,1),(12,23)]]
+#            engine.draw.line(image, color4, points[0], points[1],1)
             image = engine.transform.flip(image, True, True)           
             self.images['normal'] = image
             self.mask = engine.mask.from_surface(self.images['normal'])
