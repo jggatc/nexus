@@ -17,10 +17,10 @@ Bot reverse (DOWN/KP2/s)
 Bot left (LEFT/KP4/a)
 Bot right (RIGHT/KP6/d)
 Bot shoot (SPACE/KP0/z)
-CTRL
+--directional (CTRL)
 Node repair (x)
-SHIFT
-Start/pause (Escape)
+--directional (SHIFT)
+Start/pause (Escape/r)
 Panel toggle (p)
 """
 
@@ -56,7 +56,8 @@ Panel toggle (p)
                 elif event.key == engine.K_x:
                     self.matrix.avatar.set_control('x', True)
 #                    self.matrix.avatar.node_repair()
-                elif event.key == engine.K_ESCAPE:
+                elif event.key in (engine.K_ESCAPE, engine.K_r):      ###
+#                elif event.key == engine.K_ESCAPE:
                     if not self.matrix.nexus.initiate:
                         self.set_panel_display()
                         self.interface.get_control('Bootup').set_active(False)
