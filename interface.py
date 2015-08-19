@@ -105,6 +105,9 @@ class MatrixInterface(interphase.Interface):
                 state.controls['Activate'].set_active(True)
                 self.matrix.nexus.initiation_activate()
             elif state.control == 'Activate':
+                if not self.matrix.nexus.initiate:      ###
+                    state.controls[state.control].next()
+                    return
                 if state.value == 'Pause':
                     self.matrix.set_active(True)
                 elif state.value == 'Activate':
