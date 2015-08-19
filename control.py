@@ -24,6 +24,7 @@ Bot shoot (SPACE/KP0/z)
 Node repair (x)
 --directional (SHIFT)
 Start/pause (Escape/r)
+Sound toggle (o)
 Panel toggle (p)
 """
 
@@ -73,6 +74,8 @@ Panel toggle (p)
                         else:
                             self.interface.get_control('Activate').next()
                             self.matrix.set_active(True)
+                elif event.key == engine.K_o:   ###
+                    env.debug = not env.debug
                 elif event.key == engine.K_p:
                     self.set_panel_display()
 #                elif event.key == engine.K_q:
