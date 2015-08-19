@@ -48,6 +48,7 @@ class EventTimer:
             self.start()
 
     def start(self):
+        self.repeat = True      ###
         self.timer = Timer(self.time/1000.0, self.run, ([]))
         self.timer.start()
 
@@ -79,6 +80,7 @@ class EventTimerJS:
             self.start()
 
     def start(self):
+        self.repeat = True      ###
         engine.time.timeout(self.time, self)
 
     def cancel(self):
