@@ -7,6 +7,12 @@ except ImportError:
 	MatrixInterface = None
 
 
+try:    ###
+    xrange(0)
+except NameError:
+    xrange = range
+
+
 class Control:
     guide = \
 """Nexus Guide

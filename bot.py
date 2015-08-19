@@ -44,6 +44,7 @@ class Bot(Avatar):
         self.motion['d'] = True
         self.moving = True
         self.behaviours = {'roam':self.auto_move, 'node_attack':self.node_damage, 'target':self.target, 'evade':self.evade}     ###
+        self.behaviours_types = list(self.behaviours.keys())   ###
         self.behaviours_special = {'move_reverse':self.move_reverse, 'move_forward':self.move_forward, 'inactive':self.offline, 'stalk':self.stalk}     ###
         self.behaviour = self.behaviours['roam']
 #        self.behaviour = None
@@ -64,7 +65,8 @@ class Bot(Avatar):
 #            self.behaviour = self.behaviours_special['move_reverse']
 #            self.behaviour_type = 'move_reverse'
 #            return
-        self.behaviour = self.behaviours[random.choice(self.behaviours.keys())]
+        self.behaviour = self.behaviours[random.choice(self.behaviours_types)]     ###
+#        self.behaviour = self.behaviours[random.choice(self.behaviours.keys())]
         return
 
 ###
