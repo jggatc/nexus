@@ -47,5 +47,5 @@ Instructions:
 Nexus runs with Python2.7+ and the Pygame library. Alternatively, the app can run in the Java environment (http://www.java.com/getjava/) using Jython 2.2.1+ with the PyJ2D library. Obtain Jython (http://www.jython.org/) and install or put the standalone interpreter in or on the path of the app folder. Obtain PyJ2D from its project site (http://gatc.ca/projects/pyj2d/) or Github repository (https://github.com/jggatc/pyj2d/) and unpack the library in or on the path of the app folder. Run using the command ‘jython nexus.py’ or ‘java -jar jython.jar nexus.py’. Nexus 1.0 runs as a PyJ2D app with minor issues, which are fixed in Nexus 1.1 on the Github repository (https://github.com/jggatc/nexus/releases/). The app can also run in the JavaScript environment following Pyjs compilation with the Pyjsdl library, though there are issues with Nexus 1.0 that are partly addressed in Nexus 1.1, see Nexus project site for further information.
 
 
-Nexus released under the GPL3 license (http://www.gnu.org/licenses/gpl-3.0.html).
+Released under the GPL3 license (http://www.gnu.org/licenses/gpl.html).
 
