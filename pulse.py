@@ -5,7 +5,8 @@ engine = env.engine
 
 class Pulse(engine.sprite.Sprite):
     images = None
-    mask = None
+    masks = None    ###
+#    mask = None
     radius = None
 
     def __init__(self, matrix, x, y, direction, targets):
@@ -27,9 +28,13 @@ class Pulse(engine.sprite.Sprite):
             engine.draw.polygon(image, color, points, 0)
             engine.draw.polygon(image, color, points, 1)
             self.images['lobit'] = image
-            self.mask = engine.mask.from_surface(self.images['hibit'])
+            self.masks = {}      ###
+            self.masks['hibit'] = engine.mask.from_surface(self.images['hibit'])
+            self.masks['lobit'] = engine.mask.from_surface(self.images['lobit'])
+#            self.mask = engine.mask.from_surface(self.images['hibit'])
             self.radius = (image.get_width()//2)
         self.image = self.images['hibit']
+        self.mask = self.masks['hibit']
         self.current_image = 'hibit'
         self.image_timer = 2
         self.rect = self.image.get_rect(center=(int(self.x),int(self.y)))
@@ -78,9 +83,11 @@ class Pulse(engine.sprite.Sprite):
         if not self.image_timer:
             if self.current_image == 'hibit':
                 self.image = self.images['lobit']
+                self.mask = self.masks['lobit']     ###
                 self.current_image = 'lobit'
             else:
                 self.image = self.images['hibit']
+                self.mask = self.masks['hibit']     ###
                 self.current_image = 'hibit'
             self.image_timer = 2
         self.move()

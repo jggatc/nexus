@@ -25,11 +25,12 @@ class Matrix:
         if env.platform in ('pc','jvm'):
             self.adjust = False
         else:
-            self.adjust = True
-        if not env.platform == 'js':    #unidentity problem
-            self.collide_mask = engine.sprite.collide_mask
-        else:
-            self.collide_mask = None
+            self.adjust = False     ###
+#            self.adjust = True
+#        if not env.platform == 'js':    #unidentity problem    ###
+        self.collide_mask = engine.sprite.collide_mask
+#        else:
+#            self.collide_mask = None
         self.data = engine.sprite.RenderUpdates()
         self.network = engine.sprite.RenderUpdates()    #nodes
         self.network_node = engine.sprite.RenderUpdates()   #nodes to update

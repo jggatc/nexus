@@ -6,7 +6,8 @@ from util import load_sound
 
 class Datum(engine.sprite.Sprite):
     images = None
-    mask = None
+    masks = None
+#    mask = None
     radius = None
     sound = None
 
@@ -39,14 +40,20 @@ class Datum(engine.sprite.Sprite):
             engine.draw.polygon(image, color3, points, 0)
             engine.draw.polygon(image, color3, points, 1)
             self.images['lobit_corrupt'] = image
-            self.mask = engine.mask.from_surface(self.images['lobit'])
+            self.masks = {}     ###
+            self.masks['hibit'] = engine.mask.from_surface(self.images['hibit'])
+            self.masks['lobit'] = engine.mask.from_surface(self.images['lobit'])
+            self.masks['lobit_corrupt'] = engine.mask.from_surface(self.images['lobit_corrupt'])
+#            self.mask = engine.mask.from_surface(self.images['lobit'])
             self.radius = (image.get_width()//2)
             self.sound = {}
             self.sound['blip'] = load_sound('blip.wav')
             self.sound['blip'].set_volume(0.5)
         self.image = self.images['hibit']
+        self.mask = self.masks['hibit']     ###
         self.current_image = 'hibit'
-        self.rect = engine.Rect(0,0,42,42)
+        self.rect = engine.Rect(0,0,11,11)      ###
+#        self.rect = engine.Rect(0,0,42,42)
         self.rect.x = int(self.x) - (self.image.get_width()//2)
         self.rect.y = int(self.y) - (self.image.get_height()//2)
         if not self.matrix.adjust:
@@ -61,11 +68,14 @@ class Datum(engine.sprite.Sprite):
         if self.current_image == 'hibit':
             if self.dtype == 'noncorrupt':
                 self.image = self.images['lobit']
+                self.mask = self.masks['lobit']     ###
             else:
                 self.image = self.images['lobit_corrupt']
+                self.mask = self.masks['lobit_corrupt']     ###
             self.current_image = 'lobit'
         else:
             self.image = self.images['hibit']
+            self.mask = self.masks['hibit']     ###
             self.current_image = 'hibit'
         self.rect.x = int(self.x) - (self.image.get_width()//2)
         self.rect.y = int(self.y) - (self.image.get_height()//2)
