@@ -7,12 +7,6 @@ except ImportError:
 	MatrixInterface = None
 
 
-try:    ###
-    xrange(0)
-except NameError:
-    xrange = range
-
-
 class Control:
     guide = \
 """Nexus Guide
@@ -37,7 +31,7 @@ Panel toggle (p)
         self.matrix = matrix
         self.clock = engine.time.Clock()
         self.interface = MatrixInterface('Matrix Interface', matrix, self)
-        for i in xrange(100):   #fix for interface problem
+        for i in range(100):   #fix for interface problem
             self.interface.update()
             if self.interface._clock.get_fps() > 0.0:
                 break

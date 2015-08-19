@@ -31,12 +31,6 @@ env.platform = platform
 from matrix import Matrix
 
 
-try:    ###
-    xrange(0)
-except NameError:
-    xrange = range
-
-
 def setup(width, height):
     engine.init()
     engine.display.set_mode((width,height))
