@@ -15,9 +15,12 @@ class Bot(Avatar):
         Avatar.__init__(self, matrix, x, y)
         if not self.bot_image:
             image = engine.Surface((50,50), engine.SRCALPHA)
-            color1 = (200,100,120)
-            color2 = (200,0,0)
-            color3 = (200,0,0)
+            color1 = (100,80,120)
+#            color1 = (200,100,120)
+            color2 = (200,80,100)
+#            color2 = (200,0,0)
+            color3 = (200,50,50)
+#            color3 = (200,0,0)
 #            color4 = (100,100,120)
             points = [(p[0]*2,p[1]*2) for p in [(12,0),(16,10),(24,13),(16,18),(12,24),(8,18),(0,13),(8,10)]]
             engine.draw.polygon(image, color1, points, 0)
