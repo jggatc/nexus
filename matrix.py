@@ -213,6 +213,8 @@ class Matrix:
             rect = engine.draw.line(self.screen, (50,50,200), (self.width-40,self.height-20), (self.width-40+power,self.height-20),2)
 #            rect = engine.draw.line(self.screen, (0,200,0), (self.width-40,self.height-20), (self.width-40+power,self.height-20),2)
             self.update_rect.append(rect)
+        rect = engine.draw.line(self.screen, (0,0,0), (self.width-40,self.height-10), (self.width-10,self.height-10),2)     ###
+        self.update_rect.append(rect)
         if self.avatar:
             data = self.nexus.data_integration
             rect = engine.draw.line(self.screen, (0,200,0), (self.width-40,self.height-10), (self.width-40+data,self.height-10),2)
