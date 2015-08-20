@@ -25,9 +25,9 @@ Bfxr
 
 
 Nexus Guide:
-Protect the integrity of the Nexus by maintaining data flow through the node network.
+Protect the integrity of Nexus by maintaining data flow through the node network.
 
-As the Nexus's gatekeeper, guard the data flow to the Nexus while removing flashing corrupt data. Confront the infiltrating bots and repair the nodes damaged by their energy charges to ensure data transmission. Manage power reserves used by energy pulses and node repair, power is slowly restored from the network currents and energy surges provide power boost while the energy spikes drain power. Nexus's data processing and integration supports its virtual presence, and loss of its digital integrity that threaten system failure results in network shutdown.
+Nexus's virtual presence is supported by its data processing and integration. As Nexus's gatekeeper, guard the data flow to Nexus while removing flashing corrupt data. Ensure data transmission by confronting the infiltrating bots and repair the nodes damaged by their energy charges. To sustain the responsibility, manage power reserves used by energy pulses and node repair, the network current restores power and energy surges provide power boost while energy spikes drain power. Nexus's integrity depends on the data, if Nexus senses a threat of system failure it will initiate network shutdown.
 
 Controls
 Bot forward (UP/KP8/w)
@@ -41,6 +41,11 @@ Node repair (x)
 Start/pause (Escape/r)
 Sound toggle (o)
 Panel toggle (p)
+
+Status indicators
+-Nexus integrity (grey)
+-Bot power (blue)
+-Data integration (green)
 
 
 Instructions:

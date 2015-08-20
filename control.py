@@ -14,7 +14,6 @@ class Control:
 Protect the integrity of the Nexus by maintaining data flow through the node network.
 
 Controls:
-
 Bot forward (UP/KP8/w)
 Bot reverse (DOWN/KP2/s)
 Bot left (LEFT/KP4/a)
@@ -26,6 +25,11 @@ Node repair (x)
 Start/pause (Escape/r)
 Sound toggle (o)
 Panel toggle (p)
+
+Status indicators:
+Nexus integrity (grey)
+Bot power (blue)
+Data integration (green)
 """
 
     def __init__(self, matrix):
