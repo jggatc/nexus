@@ -1,4 +1,4 @@
 engine = None
 platform = None
-debug = False
+sound = True
 

@@ -22,11 +22,10 @@ class Surge(Pulse):
             engine.draw.polygon(image, color, points, 0)
             engine.draw.polygon(image, color, points, 1)
             self.images['lobit'] = image
-            if self.masks is None:   ###
+            if self.masks is None:
                 self.masks = {}
             self.masks['hibit'] = engine.mask.from_surface(self.images['hibit'])
             self.masks['lobit'] = engine.mask.from_surface(self.images['lobit'])
-#            self.mask = engine.mask.from_surface(self.images['hibit'])
             self.radius = (image.get_width()//2)
         Pulse.__init__(self, matrix, x, y, direction, targets)
         self.level = 0.5

@@ -1,7 +1,7 @@
 from __future__ import division
 import env
 engine = env.engine
-try:	###
+try:
 	from interface import MatrixInterface
 except ImportError:
 	MatrixInterface = None
@@ -59,13 +59,9 @@ Data integration (green)
                     self.matrix.avatar.set_control('r', True)
                 elif event.key in (engine.K_z, engine.K_SPACE, engine.K_KP5):
                     self.matrix.avatar.set_control('z', True)
-#                elif event.key in (engine.K_SPACE, engine.K_KP5):
-#                    self.matrix.avatar.set_control('space', True)
                 elif event.key == engine.K_x:
                     self.matrix.avatar.set_control('x', True)
-#                    self.matrix.avatar.node_repair()
-                elif event.key in (engine.K_ESCAPE, engine.K_r):      ###
-#                elif event.key == engine.K_ESCAPE:
+                elif event.key in (engine.K_ESCAPE, engine.K_r):
                     if not self.matrix.nexus.initiate:
                         self.set_panel_display()
                         self.interface.get_control('Bootup').set_active(False)
@@ -78,12 +74,10 @@ Data integration (green)
                         else:
                             self.interface.get_control('Activate').next()
                             self.matrix.set_active(True)
-                elif event.key == engine.K_o:   ###
-                    env.debug = not env.debug
+                elif event.key == engine.K_o:
+                    env.sound = not env.sound
                 elif event.key == engine.K_p:
                     self.set_panel_display()
-#                elif event.key == engine.K_q:
-#                    self.matrix.quit = True
             if event.type == engine.KEYUP:
                 if event.key in (engine.K_w, engine.K_UP, engine.K_KP8):
                     self.matrix.avatar.set_control('u', False)
@@ -95,29 +89,23 @@ Data integration (green)
                     self.matrix.avatar.set_control('r', False)
                 elif event.key in (engine.K_z, engine.K_SPACE, engine.K_KP5):
                     self.matrix.avatar.set_control('z', False)
-#                elif event.key == engine.K_SPACE or event.key == engine.K_KP5:
-#                    self.matrix.avatar.set_control('space', False)
                 elif event.key == engine.K_x:
                     self.matrix.avatar.set_control('x', False)
             elif event.type == engine.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     self.matrix.avatar.set_control('z', True)
-#                if event.button == 1:
-#                    self.matrix.avatar.set_control('space', True)
             elif event.type == engine.MOUSEBUTTONUP:
                 if event.button == 1:
                     self.matrix.avatar.set_control('z', False)
-#                if event.button == 1:
-#                    self.matrix.avatar.set_control('space', False)
             elif event.type == self.matrix.data_event:
                 self.matrix.data_generator()
             elif event.type == self.matrix.surge_event:
                 self.matrix.surge_generator()
             elif event.type == self.matrix.spike_event:
                 self.matrix.spike_generator()
-            elif event.type == self.matrix.bot_event:   ###
+            elif event.type == self.matrix.bot_event:
                 self.matrix.bot_check()
-            elif event.type == self.matrix.level_event:   ###
+            elif event.type == self.matrix.level_event:
                 self.matrix.level_set()
             elif event.type == engine.QUIT:
                 self.matrix.quit = True
@@ -131,7 +119,7 @@ Data integration (green)
         self.process_event()
 
 
-class InterfaceObj(engine.sprite.Sprite):   ###
+class InterfaceObj(engine.sprite.Sprite):
 
     def __init__(self, identity, matrix, control):
         engine.sprite.Sprite.__init__(self)

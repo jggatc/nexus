@@ -5,8 +5,7 @@ engine = env.engine
 
 class Pulse(engine.sprite.Sprite):
     images = None
-    masks = None    ###
-#    mask = None
+    masks = None
     radius = None
 
     def __init__(self, matrix, x, y, direction, targets):
@@ -28,10 +27,9 @@ class Pulse(engine.sprite.Sprite):
             engine.draw.polygon(image, color, points, 0)
             engine.draw.polygon(image, color, points, 1)
             self.images['lobit'] = image
-            self.masks = {}      ###
+            self.masks = {}
             self.masks['hibit'] = engine.mask.from_surface(self.images['hibit'])
             self.masks['lobit'] = engine.mask.from_surface(self.images['lobit'])
-#            self.mask = engine.mask.from_surface(self.images['hibit'])
             self.radius = (image.get_width()//2)
         self.image = self.images['hibit']
         self.mask = self.masks['hibit']
@@ -56,9 +54,8 @@ class Pulse(engine.sprite.Sprite):
             if collided:
                 collided[0].shot()
                 return True
-        for target in [self.matrix.data]:     ###pyjsdl error: engine.sprite.collide_mask with no datum.mask
-            collided = engine.sprite.spritecollide(self, target, False, self.matrix.collide_mask)  ###
-#            collided = engine.sprite.spritecollide(self, target, False, engine.sprite.collide_circle)
+        for target in [self.matrix.data]:
+            collided = engine.sprite.spritecollide(self, target, False, self.matrix.collide_mask)
             if collided:
                 collided[0].damage()
                 return True
@@ -83,11 +80,11 @@ class Pulse(engine.sprite.Sprite):
         if not self.image_timer:
             if self.current_image == 'hibit':
                 self.image = self.images['lobit']
-                self.mask = self.masks['lobit']     ###
+                self.mask = self.masks['lobit']
                 self.current_image = 'lobit'
             else:
                 self.image = self.images['hibit']
-                self.mask = self.masks['hibit']     ###
+                self.mask = self.masks['hibit']
                 self.current_image = 'hibit'
             self.image_timer = 2
         self.move()

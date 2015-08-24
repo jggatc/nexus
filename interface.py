@@ -24,7 +24,7 @@ class MatrixInterface(interphase.Interface):
             control_list = ['Help','Main'],
             link = [['Bootup'],['Guide']],
             link_activated = True,
-            control_outline = True)     ###link = [['Bootup','Activate'],['Guide']],
+            control_outline = True)
         self.add(
             identity = 'Bootup',
             control_type = 'control_toggle',
@@ -105,7 +105,7 @@ class MatrixInterface(interphase.Interface):
                 state.controls['Activate'].set_active(True)
                 self.matrix.nexus.initiation_activate()
             elif state.control == 'Activate':
-                if not self.matrix.nexus.initiate:      ###
+                if not self.matrix.nexus.initiate:
                     state.controls[state.control].next()
                     return
                 if state.value == 'Pause':

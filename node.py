@@ -19,8 +19,7 @@ class Node(engine.sprite.Sprite):
             self.images = {}
             image = engine.Surface((50,50), engine.SRCALPHA)
             points = [(p[0]*5,p[1]*5) for p in [(5,0),(9,1),(10,5),(9,9),(5,10),(1,9),(0,5),(1,1)]]
-            color1 = (50,80,100)      ###
-#            color1 = (100,120,140)
+            color1 = (50,80,100)
             color2 = (8,10,120)
             engine.draw.polygon(image, color1, points, 0)
             engine.draw.aalines(image, color2, True, points, 1)
@@ -69,7 +68,7 @@ class Node(engine.sprite.Sprite):
         self.current_image = 'operational'
         self.image_timer = 2
         self.rect = self.image.get_rect(center=(int(self.x),int(self.y)))
-        self.return_value = [0,0]     ###
+        self.return_value = [0,0]
         self.node_thread = self.id[0]
         self.node_port = None
         self.node_net, self.node_priority = self.node_connection()
@@ -80,11 +79,6 @@ class Node(engine.sprite.Sprite):
         self.shutdown = False
         self.delayed_message = 0
         self.delayed_message_mode = None
-
-#        self.shutdown = True    ###
-#        self.image = self.images['damaged']
-#        self.current_image = 'damaged'
-#        self.matrix.node_update(self)
 
     def node_connection(self):
         nodes = {}
@@ -126,7 +120,6 @@ class Node(engine.sprite.Sprite):
 
     def communicate(self, datum):
         if not self.offline:
-#        if not self.shutdown:
             if self.node_port == datum.node_previous:
                 self.set_node_port()
             if self.node_port:
@@ -136,11 +129,10 @@ class Node(engine.sprite.Sprite):
         else:
             return None
 
-    def transmit(self, node_id=None, message=None):   ###transmit with event?
+    def transmit(self, node_id=None, message=None):
         if not node_id:
             for node in self.node_net:
                 if not self.offline:
-#                if not self.shutdown:
                     self.matrix.node[node].transmit(self.id, 'online')
                 else:
                     self.matrix.node[node].transmit(self.id, 'offline')
@@ -161,7 +153,7 @@ class Node(engine.sprite.Sprite):
         elif message == 'bootup':
             if self.shutdown:
                 self.shutdown = False
-                self.offline = False    ###
+                self.offline = False
                 self.image = self.images['operational']
                 self.current_image = 'operational'
                 for node in self.node_net:
@@ -176,7 +168,7 @@ class Node(engine.sprite.Sprite):
         elif message == 'shutdown':
             if not self.shutdown:
                 self.shutdown = True
-                self.offline = True    ###
+                self.offline = True
                 self.image = self.images['damaged']
                 self.current_image = 'damaged'
                 self.matrix.node_update(self)
@@ -189,7 +181,6 @@ class Node(engine.sprite.Sprite):
 
     def disable(self):
         self.offline = True
-#        self.shutdown = True
         self.transmit()
         self.image = self.images['damaged']
         self.current_image = 'damaged'
@@ -197,7 +188,6 @@ class Node(engine.sprite.Sprite):
 
     def enable(self):
         self.offline = False
-#        self.shutdown = False
         self.transmit()
         self.image = self.images['operational']
         self.current_image = 'operational'
@@ -208,7 +198,6 @@ class Node(engine.sprite.Sprite):
         if self.integrity < 0.0:
             self.integrity = 0.0
         if not self.offline:
-#        if not self.shutdown:
             if self.integrity <= 0.0:
                 self.disable()
 
@@ -217,10 +206,9 @@ class Node(engine.sprite.Sprite):
         if self.integrity > 1.0:
             self.integrity = 1.0
         if self.offline:
-#        if self.shutdown:
             if self.integrity >= 1.0:
                 self.enable()
-        return self.offline     ###
+        return self.offline
 
     def update(self):
         if self.delayed_message:
@@ -232,7 +220,7 @@ class Node(engine.sprite.Sprite):
         if not self.image_timer:
             if self.current_image == 'damaged':
                 self.image = self.images['failed']
-                self.current_image = 'failed'           
+                self.current_image = 'failed'
             elif self.current_image == 'failed':
                 self.image = self.images['damaged']
                 self.current_image = 'damaged'

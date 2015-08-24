@@ -17,10 +17,8 @@ class Charge(engine.sprite.Sprite):
         if not self.images:
             self.images = {}
             color1 = (100,0,0)
-#            color1 = (100,100,100)
             color2 = (200,0,0)
             color3 = (50,50,50)
-#            color2 = (255,0,0)
             image = engine.Surface((22,22), engine.SRCALPHA)
             points = [(p[0]*2,p[1]*2) for p in [(5,0),(10,2),(10,8),(5,10),(0,8),(0,2)]]
             engine.draw.polygon(image, color1, points, 0)
@@ -64,7 +62,7 @@ class Charge(engine.sprite.Sprite):
         targets = engine.sprite.spritecollide(self, self.matrix.network, False, engine.sprite.collide_circle)
         for target in targets:
             target.damage(self.level)
-        if not env.debug:   ###
+        if env.sound:
             self.sound['explode'].play()
         self.kill()
 

@@ -25,23 +25,19 @@ class Matrix:
         if env.platform in ('pc','jvm'):
             self.adjust = False
         else:
-            self.adjust = False     ###
-#            self.adjust = True
-#        if not env.platform == 'js':    #unidentity problem    ###
+            self.adjust = False
         self.collide_mask = engine.sprite.collide_mask
-#        else:
-#            self.collide_mask = None
         self.data = engine.sprite.RenderUpdates()
         self.network = engine.sprite.RenderUpdates()    #nodes
         self.network_node = engine.sprite.RenderUpdates()   #nodes to update
         self.level = 1
-        self.bot = None     ###
+        self.bot = None
         self.bots = engine.sprite.RenderUpdates()
         self.avatar = Avatar(self, 250, 550)
         self.avatars = engine.sprite.RenderUpdates(self.avatar)
         self.pulses = engine.sprite.RenderUpdates()
         self.charges = engine.sprite.RenderUpdates()
-        self.data_construct = []     ###
+        self.data_construct = []
         engine.display.set_icon(self.avatar.image)
         self.quit = False
         self.update_rect = []
@@ -70,9 +66,9 @@ class Matrix:
         self.surge_event_time = 15555
         self.spike_event = engine.USEREVENT+2
         self.spike_event_time = 21500
-        self.bot_event = engine.USEREVENT+3     ###
+        self.bot_event = engine.USEREVENT+3
         self.bot_event_time = 5000
-        self.level_event = engine.USEREVENT+4     ###
+        self.level_event = engine.USEREVENT+4
         self.level_event_time = 60000
         if env.platform == 'pc':
             self.set_timer = engine.time.set_timer
@@ -81,7 +77,6 @@ class Matrix:
             self.set_timer = set_timer
         self.draw_grid()
         self.active = True
-#        self.init()
 
     def draw_grid(self):
         self.background.fill((20,20,20))
@@ -101,7 +96,6 @@ class Matrix:
         self.set_timer(self.spike_event,self.spike_event_time)
         self.set_timer(self.bot_event,self.bot_event_time)
         self.set_timer(self.level_event,self.level_event_time)
-#        self.bot_generator()
 
     def set_active(self, state):
         self.active = state
@@ -152,7 +146,7 @@ class Matrix:
     def separation(self, entity, other):
         return ((entity.x-other.x)**2 + (entity.y-other.y)**2)**0.5
 
-    def level_set(self):    ###
+    def level_set(self):
         self.level += 1
 
     def data_generator(self):
@@ -165,12 +159,11 @@ class Matrix:
             self.data_count += 1
 
     def bot_generator(self):
-#        if not self.bots.sprites():    ###
         node = random.choice(self.nodex)
         self.bot = Bot(self, node[0], node[1])
         self.bots.add(self.bot)
 
-    def bot_check(self):    ###
+    def bot_check(self):
         if len(self.bots.sprites()) < self.level:
             self.bot_generator()
 
@@ -193,7 +186,7 @@ class Matrix:
             datum.rect.x = int(datum.x) - (datum.image.get_width()//2)
             datum.rect.y = int(datum.y) - (datum.image.get_height()//2)
             datum.state_changed = False
-            datum.direction = 'd'    ###?
+            datum.direction = 'd'
             datum.node_previous = None
             return datum
         else:
@@ -211,17 +204,15 @@ class Matrix:
         if self.avatar:
             power = int(self.avatar.power*30)
             rect = engine.draw.line(self.screen, (50,50,200), (self.width-40,self.height-20), (self.width-40+power,self.height-20),2)
-#            rect = engine.draw.line(self.screen, (0,200,0), (self.width-40,self.height-20), (self.width-40+power,self.height-20),2)
             self.update_rect.append(rect)
-        rect = engine.draw.line(self.screen, (0,0,0), (self.width-40,self.height-10), (self.width-10,self.height-10),2)     ###
+        rect = engine.draw.line(self.screen, (0,0,0), (self.width-40,self.height-10), (self.width-10,self.height-10),2)
         self.update_rect.append(rect)
         if self.avatar:
             data = self.nexus.data_integration
             rect = engine.draw.line(self.screen, (0,200,0), (self.width-40,self.height-10), (self.width-40+data,self.height-10),2)
-#            rect = engine.draw.line(self.screen, (0,200,0), (self.width-40,self.height-20), (self.width-40+power,self.height-20),2)
             self.update_rect.append(rect)
 
-    def update_time(self):      ###
+    def update_time(self):
         time = self.control.clock.get_time()
         self.time_diff = self.time_prev - time
         self.time_prev = time
@@ -244,11 +235,9 @@ class Matrix:
                 timers[self.level_event].cancel()
             except:
                 pass
-        self.control.interface.reset()      ###
-        for bot in self.bots:   ###
+        self.control.interface.reset()
+        for bot in self.bots:
             bot.retreat()
-#        self.matrix.level = 1      ###
-#        self.data_count = 0
 
     def pause_mode(self):
         self.control.panel.clear(self.screen,self.background)

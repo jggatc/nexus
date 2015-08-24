@@ -24,17 +24,17 @@ class Core(Node):
         self.initiation = False
         self.initiate = False
         self.init_count = 3
-        self.aware = False     ###
+        self.aware = False
         self.data_type = ['noncorrupt','corrupt']
         self.data_process = 0
         self.data_corruption = 0
         self.data_integration = 0
-        self.data_integration_top = 0       ###
+        self.data_integration_top = 0
         self.integrity_high_color = engine.Color(80,100,220)
         self.integrity_low_color = engine.Color(180,50,50)
-        self.integrity_loss = -0.001    ###
+        self.integrity_loss = -0.001
         self.integrity = 1.0
-        self.count = 10      ###
+        self.count = 10
 
     def init(self):
         if not self.initiate:
@@ -49,17 +49,12 @@ class Core(Node):
                     self.matrix.init()
                     self.initiation = False
                     self.initiate = True
-                    self.aware = True      ###
+                    self.aware = True
 
     def initiation_activate(self):
         if not self.initiate:
-            self.init_count = 3     ###
+            self.init_count = 3
             self.initiation = True
-
-    def node_power_transfer(self):      ###
-        pass
-        #transfer power to node if not node.shutdown
-        #node lose power with data transfer, shutdown when low power
 
     def communicate(self, datum):
         self.data_processing(datum)
@@ -80,25 +75,24 @@ class Core(Node):
         self.matrix.data_count -= 1
 
     def system_integrity(self):
-        data_processed = (self.data_process/25.0) + (-self.data_corruption/5.0)      ###
+        data_processed = (self.data_process/25.0) + (-self.data_corruption/5.0)
         self.integrity += (self.integrity_loss + data_processed)
-#        self.integrity += ( (self.integrity_loss) + (self.data_process/50.0) + (-self.data_corruption/10.0) )
         self.data_integration += data_processed
         if self.integrity > 1.0:
             self.integrity = 1.0
         self.data_process = 0
         self.data_corruption = 0
         if self.integrity > 0.0:
-            self.matrix.control.interface.set_data_processed(int(self.data_integration*10))     ###
+            self.matrix.control.interface.set_data_processed(int(self.data_integration*10))
             return True
         else:
             if self.data_integration > self.data_integration_top:
                 self.data_integration_top = self.data_integration
-            self.matrix.control.interface.set_data_processed(int(self.data_integration*10))     ###
-            self.matrix.control.interface.set_data_processed_top(int(self.data_integration_top*10))     ###
+            self.matrix.control.interface.set_data_processed(int(self.data_integration*10))
+            self.matrix.control.interface.set_data_processed_top(int(self.data_integration_top*10))
             return False
 
-    def system_awaken(self):       ###
+    def system_awaken(self):
         if self.init_count == 3:
             self.reboot()
             self.system_bootup()
@@ -110,9 +104,7 @@ class Core(Node):
             self.initiate = True
 
     def reboot(self):
-#        self.initiation = False     ###
         self.initiate = False
-#        self.init_count = 3
         self.data_process = 0
         self.data_corruption = 0
         self.data_integration = 0
@@ -123,17 +115,16 @@ class Core(Node):
         self.matrix.data_count = 0
         self.matrix.avatar.pulse_charge = 1.0
         self.matrix.avatar.integrity = 1.0
-#        self.matrix.network_node.empty()   ###?
 
     def system_bootup(self):
-        if not env.debug:   ###
+        if env.sound:
             self.sound['bootup'].play()
         self.transmit(self.id, 'bootup')
 
     def system_failure(self):
         if not self.shutdown:
             self.matrix.shutdown()
-            self.initiate = False       ###
+            self.initiate = False
             self.transmit(self.id, 'shutdown')
 
     def update(self):

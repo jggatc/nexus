@@ -21,9 +21,6 @@ class Avatar(engine.sprite.Sprite):
             color1 = (80,100,120)
             color2 = (80,100,200)
             color3 = (50,50,200)
-#            color3 = (50,200,50)
-#            color4 = (25,100,25)
-#            color4 = (0,255,0)
             points = [(p[0]*2,p[1]*2) for p in [(12,0),(16,10),(24,13),(16,18),(12,24),(8,18),(0,13),(8,10)]]
             engine.draw.polygon(image, color1, points, 0)
             points = [(p[0]*2,p[1]*2) for p in [(16,11),(23,13),(16,17)]]
@@ -32,8 +29,6 @@ class Avatar(engine.sprite.Sprite):
             engine.draw.polygon(image, color2, points, 0)
             points = [(p[0]*2,p[1]*2) for p in [(12,8),(15,11),(15,17),(12,20),(9,17),(9,11)]]
             engine.draw.polygon(image, color3, points, 0)
-#            points = [(p[0]*2,p[1]*2) for p in [(12,1),(12,23)]]
-#            engine.draw.line(image, color4, points[0], points[1],1)
             self.images['normal'] = image
             self.mask = engine.mask.from_surface(self.images['normal'])
             self.sound = {}
@@ -71,7 +66,7 @@ class Avatar(engine.sprite.Sprite):
         self.dirs = {'u':-1,'d':1,'l':-1,'r':1}
         self.dir_offset = {'u':(0,-1),'d':(0,1),'l':(-1,0),'r':(1,0)}
         self.orient = {'u':'v','d':'v','l':'h','r':'h'}
-        self.field = {'u':50,'d':450,'l':50,'r':450}    
+        self.field = {'u':50,'d':450,'l':50,'r':450}
         self.control = {'z':False,'x':False}
         self.active = False
         self.pulse_charge = 1.0
@@ -169,7 +164,6 @@ class Avatar(engine.sprite.Sprite):
                 self.node_repair()
             else:
                 self.activate_pulse()
-#            self.control_state()
 
     def activate_pulse(self):
         if (self.pulse_charge >= 1.0) and (self.power > 0.1):
@@ -190,45 +184,35 @@ class Avatar(engine.sprite.Sprite):
                 x = self.x + (self.width/2)
                 y = self.y
             self.matrix.pulses.add( Pulse(self.matrix, x, y, pulse_aim, self.targets) )
-#            self.matrix.pulses.add( Pulse(self.matrix, self.x, self.y, self.pulse_aim, self.targets) )
-#                self.matrix.pulses.add( Pulse(self, self.matrix, self.x, self.y, self.pulse_aim, self.targets) )
-            self.power -= 0.01     ###
-#            self.power -= 0.02
-            if not env.debug:
+            self.power -= 0.01
+            if env.sound:
                 self.sound['pulse'].play()
             self.pulse_charge = 0.0
 
     def datum_collide(self):
-        collided = engine.sprite.spritecollide(self, self.matrix.data, False, self.matrix.collide_mask)   ###
-#        collided = engine.sprite.spritecollide(self, self.matrix.data, False, engine.sprite.collide_circle)
+        collided = engine.sprite.spritecollide(self, self.matrix.data, False, self.matrix.collide_mask)
         for datum in collided:
             datum.damage()
-
-#    def display_power(self):
-##    def display_force(self):
-#        engine.draw.line(self.image, (0,0,0), (0,self.image.get_height()-2), (self.image.get_width(),self.image.get_height()-2),2)
-#        engine.draw.line(self.image, (80,100,220), (0,self.image.get_height()-2), ((self.image.get_width()*self.power),self.image.get_height()-2),2)
-##        engine.draw.line(self.image, (80,100,220), (0,self.image.get_height()-2), ((self.image.get_width()*self.force_field),self.image.get_height()-2),2)
 
     def shot(self):
         self.power -= 0.1
         if self.power < 0.0:
             self.power = 0.0
-        if not env.debug:
+        if env.sound:
             self.sound['shot'].play()
 
     def energy_surge(self, level):
         self.power += level
         if self.power > 1.0:
             self.power = 1.0
-        if not env.debug:
+        if env.sound:
             self.sound['surge'].play()
 
     def energy_spike(self, level):
         self.power -= level
         if self.power < 0.0:
             self.power = 0.0
-        if not env.debug:
+        if env.sound:
             self.sound['spike'].play()
 
     def regenerate(self):
@@ -250,17 +234,13 @@ class Avatar(engine.sprite.Sprite):
         else:
             node = self.matrix.node_check(self)
         if node and node.offline:
-#        if node and node.shutdown:
             energy = 0.1
             if self.power > 0.3:
                 node.repair(energy)
                 self.power -= energy/10.0
-                if not env.debug:
+                if env.sound:
                     if not self.channel.get_busy():
                         self.channel.play(self.sound['repair'])
-
-#    def nemesis_push(self, nemesis):    ###
-#        pass
 
     def destroyed(self):
         self.matrix.avatar = None
@@ -277,5 +257,4 @@ class Avatar(engine.sprite.Sprite):
             if self.power < 0.01:
                 self.power = 0.0
         self.regenerate()
-#        self.display_power()
 
