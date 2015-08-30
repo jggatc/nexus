@@ -5,15 +5,6 @@
 #Copyright (C) 2015 James Garnon <http://gatc.ca/>
 #Released under the GPL3 License <http://www.gnu.org/licenses/>
 
-#PyWeek: August 2015
-#Theme: Data, data, data!
-
-"""
-Nexus - Data Processor Construct
-PyWeek: August 2015
-Theme: Data, data, data!
-"""
-
 from __future__ import division
 import os, sys
 if os.name in ('posix', 'nt', 'os2', 'ce', 'riscos'):
